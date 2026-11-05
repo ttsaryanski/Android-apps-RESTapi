@@ -4,6 +4,9 @@ import { CreateNoteDataType } from "../validators/notes/note.schema.js";
 import { MealResponseType } from "./MealTypes.js";
 import { CreateMealDataType } from "../validators/meals/meal.schema.js";
 
+import { CocktailResponseType } from "./CocktailTypes.js";
+import { CreateCocktailDataType } from "../validators/cocktails/cocktails.schema.js";
+
 export interface NoteServicesTypes {
     getAll(): Promise<NoteResponseType[]>;
     create(data: CreateNoteDataType): Promise<NoteResponseType>;
@@ -15,4 +18,9 @@ export interface NoteServicesTypes {
 export interface MealServicesTypes {
     getTop(): Promise<MealResponseType[]>;
     incrementCount(data: CreateMealDataType): Promise<void>;
+}
+
+export interface CocktailServicesTypes {
+    getTop(): Promise<CocktailResponseType[]>;
+    incrementCount(data: CreateCocktailDataType): Promise<void>;
 }
