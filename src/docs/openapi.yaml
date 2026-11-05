@@ -178,6 +178,108 @@ paths:
                         application/json:
                             example:
                                 message: "Internal server error..."
+    /meals/top:
+        get:
+            summary: Gets top meals
+            tags: [Meals]
+            description: Retrieves a list of meals sorted by count in descending order
+            responses:
+                200:
+                    description: Ok - Successfully retrieved top meals
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetAllMealsResponse"
+                500:
+                    description: Internal Server Error - Server error
+                    content:
+                        application/json:
+                            example:
+                                message: "Internal server error..."
+    /meals/increment:
+        post:
+            summary: Increments meal count
+            tags: [Meals]
+            description: Increments the count for a meal. Creates the meal if it doesn't exist
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateMealRequest"
+            responses:
+                204:
+                    description: No Content - Meal count successfully incremented
+                400:
+                    description: Bad Request - invalid data
+                    content:
+                        application/json:
+                            examples:
+                                invalidTitle:
+                                    summary: Invalid title
+                                    value:
+                                        message: "Meal title must be at least 1 characters long"
+                                invalidUrl:
+                                    summary: Invalid URL
+                                    value:
+                                        message: "Invalid file URL!"
+                500:
+                    description: Internal Server Error - server error
+                    content:
+                        application/json:
+                            example:
+                                message: "Internal server error..."
+    /cocktails/top:
+        get:
+            summary: Gets top cocktails
+            tags: [Cocktails]
+            description: Retrieves a list of cocktails sorted by count in descending order
+            responses:
+                200:
+                    description: Ok - Successfully retrieved top cocktails
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetAllCocktailsResponse"
+                500:
+                    description: Internal Server Error - Server error
+                    content:
+                        application/json:
+                            example:
+                                message: "Internal server error..."
+    /cocktails/increment:
+        post:
+            summary: Increments cocktail count
+            tags: [Cocktails]
+            description: Increments the count for a cocktail. Creates the cocktail if it doesn't exist
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateCocktailRequest"
+            responses:
+                204:
+                    description: No Content - Cocktail count successfully incremented
+                400:
+                    description: Bad Request - invalid data
+                    content:
+                        application/json:
+                            examples:
+                                invalidTitle:
+                                    summary: Invalid title
+                                    value:
+                                        message: "Cocktail title must be at least 1 characters long"
+                                invalidUrl:
+                                    summary: Invalid URL
+                                    value:
+                                        message: "Invalid file URL!"
+                500:
+                    description: Internal Server Error - server error
+                    content:
+                        application/json:
+                            example:
+                                message: "Internal server error..."
 
 components:
     schemas:
@@ -228,3 +330,105 @@ components:
                 content:
                     type: string
                     example: "Edited content"
+
+        SimpleMeal:
+            type: object
+            properties:
+                _id:
+                    type: string
+                    example: "6833318fd414ea08fac843ec"
+                title:
+                    type: string
+                    example: "Ayam Percik"
+                meal_id:
+                    type: number
+                    example: 53050
+                img_url:
+                    type: string
+                    format: uri
+                    example: "https://www.themealdb.com/images/media/meals/020z181619788503.jpg"
+                count:
+                    type: number
+                    example: 5
+                createdAt:
+                    type: string
+                    format: date-time
+                    example: "2025-05-25T15:04:47.780Z"
+                updatedAt:
+                    type: string
+                    format: date-time
+                    example: "2025-05-25T15:04:47.780Z"
+
+        GetAllMealsResponse:
+            type: array
+            items:
+                $ref: "#/components/schemas/SimpleMeal"
+
+        CreateMealRequest:
+            type: object
+            required:
+                - title
+                - meal_id
+                - img_url
+            properties:
+                title:
+                    type: string
+                    example: "Ayam Percik"
+                meal_id:
+                    type: number
+                    example: 53050
+                img_url:
+                    type: string
+                    format: uri
+                    example: "https://www.themealdb.com/images/media/meals/020z181619788503.jpg"
+
+        SimpleCocktail:
+            type: object
+            properties:
+                _id:
+                    type: string
+                    example: "6833318fd414ea08fac843ec"
+                title:
+                    type: string
+                    example: "Margarita"
+                cocktail_id:
+                    type: number
+                    example: 11007
+                img_url:
+                    type: string
+                    format: uri
+                    example: "https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg"
+                count:
+                    type: number
+                    example: 3
+                createdAt:
+                    type: string
+                    format: date-time
+                    example: "2025-05-25T15:04:47.780Z"
+                updatedAt:
+                    type: string
+                    format: date-time
+                    example: "2025-05-25T15:04:47.780Z"
+
+        GetAllCocktailsResponse:
+            type: array
+            items:
+                $ref: "#/components/schemas/SimpleCocktail"
+
+        CreateCocktailRequest:
+            type: object
+            required:
+                - title
+                - cocktail_id
+                - img_url
+            properties:
+                title:
+                    type: string
+                    example: "Margarita"
+                cocktail_id:
+                    type: number
+                    example: 11007
+                img_url:
+                    type: string
+                    format: uri
+                    example: "https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg"
