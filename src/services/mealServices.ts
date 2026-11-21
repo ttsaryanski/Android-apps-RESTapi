@@ -8,18 +8,15 @@ export const mealServices: MealServicesTypes = {
     async getTop(): Promise<MealResponseType[]> {
         const meals = await Meal.find()
             .sort({ count: -1, title: 1 })
-            .select("-__v")
+            .select("meal_id title count img_url")
             .limit(6)
             .lean();
 
         return meals.map((meal) => ({
-            _id: meal._id.toString(),
-            title: meal.title,
             meal_id: meal.meal_id,
-            img_url: meal.img_url,
+            title: meal.title,
             count: meal.count,
-            createdAt: meal.createdAt,
-            updatedAt: meal.updatedAt,
+            img_url: meal.img_url,
         }));
     },
 

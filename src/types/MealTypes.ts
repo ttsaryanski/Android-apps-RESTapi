@@ -1,9 +1,6 @@
 export interface MealResponseType {
-    _id: string;
-    title: string;
     meal_id: number;
-    img_url: string;
+    title: string;
     count: number;
-    createdAt: Date;
-    updatedAt: Date;
+    img_url: string;
 }
