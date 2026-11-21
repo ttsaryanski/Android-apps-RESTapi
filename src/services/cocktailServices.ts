@@ -8,18 +8,15 @@ export const cocktailServices: CocktailServicesTypes = {
     async getTop(): Promise<CocktailResponseType[]> {
         const cocktails = await Cocktail.find()
             .sort({ count: -1, title: 1 })
-            .select("-__v")
+            .select("cocktail_id title count img_url")
             .limit(6)
             .lean();
 
         return cocktails.map((cocktail) => ({
-            _id: cocktail._id.toString(),
-            title: cocktail.title,
             cocktail_id: cocktail.cocktail_id,
-            img_url: cocktail.img_url,
+            title: cocktail.title,
             count: cocktail.count,
-            createdAt: cocktail.createdAt,
-            updatedAt: cocktail.updatedAt,
+            img_url: cocktail.img_url,
         }));
     },
 
