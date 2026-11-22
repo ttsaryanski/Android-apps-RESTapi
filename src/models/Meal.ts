@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IMeal extends Document {
     title: string;
-    meal_id: number;
+    meal_id: string;
     img_url: string;
     count: number;
     createdAt: Date;
@@ -15,7 +15,11 @@ const MealSchema = new Schema<IMeal>({
         required: [true, "Meal title is required"],
         minlength: [1, "Meal title must be at least 1 characters long"],
     },
-    meal_id: { type: Number, required: [true, "Meal ID is required"] },
+    meal_id: {
+        type: String,
+        required: [true, "Meal ID is required"],
+        minlength: [1, "Meal ID must be at least 1 character long"],
+    },
     img_url: { type: String, required: [true, "Image URL is required"] },
     count: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },

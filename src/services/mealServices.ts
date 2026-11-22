@@ -21,10 +21,8 @@ export const mealServices: MealServicesTypes = {
     },
 
     async incrementCount(data: CreateMealDataType): Promise<void> {
-        const mealId = Number(data.meal_id);
-
         await Meal.findOneAndUpdate(
-            { meal_id: mealId },
+            { meal_id: data.meal_id },
             {
                 $set: {
                     title: data.title,
