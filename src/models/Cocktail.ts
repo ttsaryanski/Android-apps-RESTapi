@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface ICocktail extends Document {
     title: string;
-    cocktail_id: number;
+    cocktail_id: string;
     img_url: string;
     count: number;
     createdAt: Date;
@@ -15,7 +15,11 @@ const CocktailSchema = new Schema<ICocktail>({
         required: [true, "Cocktail title is required"],
         minlength: [1, "Cocktail title must be at least 1 characters long"],
     },
-    cocktail_id: { type: Number, required: [true, "Cocktail ID is required"] },
+    cocktail_id: {
+        type: String,
+        required: [true, "Cocktail ID is required"],
+        minlength: [1, "Cocktail ID must be at least 1 character long"],
+    },
     img_url: { type: String, required: [true, "Image URL is required"] },
     count: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },

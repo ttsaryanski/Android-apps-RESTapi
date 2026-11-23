@@ -21,10 +21,8 @@ export const cocktailServices: CocktailServicesTypes = {
     },
 
     async incrementCount(data: CreateCocktailDataType): Promise<void> {
-        const cocktailId = Number(data.cocktail_id);
-
         await Cocktail.findOneAndUpdate(
-            { cocktail_id: cocktailId },
+            { cocktail_id: data.cocktail_id },
             {
                 $set: {
                     title: data.title,
